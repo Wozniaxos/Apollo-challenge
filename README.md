@@ -1,70 +1,18 @@
-# Getting Started with Create React App
+# Apollo-challenge
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+1. Setup Apollo client with "ETMDB" API from that list -> https://github.com/APIs-guru/graphql-apis
+2. Create route cinema details where you will fetch allCinemaDetails (first 5 only) and display it on the list with some basic info - let's say: `name`, `hallName` and `technology`
+3. After clicking on particular cinema there should be redirect to particular cinema view where only one particular cinemaDetail is fetched and more info of that cinema: `name`, `hallName`, `numberOfSeats`, `cinemaScheduleSet` this will be list of items with `showStartDate`, `showEndDate`, and some movie info like `movieTitle`, `releaseDate`, `durationMinutes`, `budget`. There is no restriction about first param of scheduleSet so you can fetch them as many you want and display all on the list. You should be able to do page refresh on that view and it shouldn't break application.
+4. Implement 2 buttons "next" and "previous" as paging for the main allCinemaDetails route - this is why we asked to fetch only first 5 records. Previous "button" should be disabled on first page and "next" button should be disabled on last page. These are coursor paginated items.
+5. Write 2 simple test (1 per view) using Mocking capabilities of apollo that test just displaying list of details properly and displayig particular detail properly
 
-## Available Scripts
+### Bonus
+Current pagination implementation will trigger new query on every page change since records are encapsulated in node object and apollo cache doesn't know how to handle caching of that scenario. More info about this you will find at: https://www.apollographql.com/docs/react/pagination/cursor-based/ in this particular case you can go with just ready relay pagination. The result should be that you on page change you get proper records without seeing any of new requests in the console.
 
-In the project directory, you can run:
+### Notes
+1. Try to use conventional commits https://www.conventionalcommits.org/en/v1.0.0/
+2. Try to focus mainly on logic, i would say that visual part is the last part that you should take care of in that scenario
 
-### `yarn start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Helpful resources
+1. Apollo client docs -> https://www.apollographql.com/docs/react/
+2. GraphQL -> https://graphql.org/
