@@ -9,8 +9,8 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/countries" component={Countries}/>
-        <Route path="/country/:countryId" component={Country} />
+        <Route exact path="/countries" component={Countries}/>
+        <Route path="/countries/:id" component={Country} />
         <Route exact path="/" component={Home}/>
       </Switch>
     </Router>

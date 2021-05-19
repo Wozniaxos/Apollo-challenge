@@ -1,21 +1,8 @@
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { Link, useLocation, useHistory } from "react-router-dom";
 import CountriesList from "../components/CountriesList";
-import { useState, useEffect } from "react";
-
-export const COUNTRIES_QUERY = gql`
-  query allCountries($limit: Int, $skip: Int) {
-    countries(limit: $limit, skip: $skip) {
-      id
-      name
-      vatRate
-      languages {
-        id
-        name
-      }
-    }
-  }
-`;
+import { useState, useEffect, useMemo } from "react";
+import COUNTRIES_QUERY from "../queries/countriesQuery";
 
 function useQueryUrl() {
   return new URLSearchParams(useLocation().search);
@@ -26,11 +13,11 @@ const Countries = (props) => {
   const history = useHistory();
 
   const countriesPerPage = 5;
-  const [page, setPage] = useState(query.get("page"));
+  const [page, setPage] = useState(query.get("page") || 0);
 
   useEffect(() => {
-    setPage(query.get("page"));
-  }, [query.get("page")]);
+    setPage(query.get("page") || 0);
+  }, [query]);
 
   const variables = {
     variables: { limit: countriesPerPage, skip: page * countriesPerPage },
@@ -38,36 +25,41 @@ const Countries = (props) => {
 
   const { loading, error, data } = useQuery(COUNTRIES_QUERY, variables);
 
-  const getNextPageNumber = () => {
-    const currPage = parseInt(query.get("page")) || 0;
-    const nextPage = currPage + 1;
-    return nextPage;
-  };
-  const getPreviousPageNumber = () => {
-    const currPage = parseInt(query.get("page"));
-    if (currPage >= 1) {
-      const previousPage = currPage - 1;
-      return previousPage;
+  const { onFirstPage, onLastPage, currPage } = useMemo(
+    () => ({
+      currPage: parseInt(page),
+      onFirstPage: page < 1,
+      onLastPage: page > 20,
+    }),
+    [page]
+  );
+
+  const handleOnClickPrevious = () => {
+    if (!onFirstPage) {
+      history.push(`/countries?page=${currPage - 1}`);
     } else {
-      return 0;
+      alert("There's nothing left");
     }
   };
-  const handleOnClickPrevious = () =>
-    history.push(`/countries?page=${getPreviousPageNumber()}`);
-  const handleOnClickNext = () =>
-    history.push(`/countries?page=${getNextPageNumber()}`);
+  const handleOnClickNext = () => {
+    if (!onLastPage) {
+      history.push(`/countries?page=${currPage + 1}`);
+    } else {
+      alert("There's nothing left");
+    }
+  };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
-    
+
   return (
     <div>
       <p>Cinema page</p>
       <div>
-        <button onClick={() => handleOnClickPrevious()} disabled={page <= 0}>
+        <button onClick={handleOnClickPrevious} disabled={onFirstPage}>
           Wróć
         </button>
-        <button onClick={() => handleOnClickNext()} disabled={page > 20}>
+        <button onClick={handleOnClickNext} disabled={onLastPage}>
           Dalej
         </button>
       </div>

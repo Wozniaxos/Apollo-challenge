@@ -8,7 +8,7 @@ const mocks = [
     request: {
       query: COUNTRY_QUERY,
       variables: {
-        Id: "Q889",
+        id: "Q889",
       },
     },
     result: {
