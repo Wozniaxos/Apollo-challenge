@@ -1,7 +1,8 @@
-import TestRenderer from "react-test-renderer";
 import { MockedProvider } from "@apollo/client/testing";
-import Country, { COUNTRY_QUERY } from "./Country";
+import Country from "./Country";
+import COUNTRY_QUERY from '../queries/countryQuery'
 import { MemoryRouter } from "react-router-dom";
+import { render,waitFor,cleanup } from "@testing-library/react";
 
 const mocks = [
   {
@@ -75,8 +76,8 @@ const mocks = [
   },
 ];
 
-it("renders without error", async () => {
-  const component = TestRenderer.create(
+
+  const componentToRender = () => render(
     <MemoryRouter initialEntries={['/country/Q889']}>
         <MockedProvider mocks={mocks} addTypename={false}>
           <Country match={{params: {
@@ -86,13 +87,15 @@ it("renders without error", async () => {
     </MemoryRouter>
   );
 
-  
-  const tree = component.toJSON();
-  console.log(tree)
-  expect(tree.children).toContain("Loading...");
-  await component.update()
-  .then(console.log(component.toJSON()))
-//   console.log(component.toJSON().children)
-//   expect(component.toJSON().children).toContain("Loading...");
-  
-});
+  afterEach(cleanup)
+  it("Properly renders country loading state", async () => {
+    const { getByText } = componentToRender();
+    await waitFor(() => getByText(/Loading.../i));
+  });
+
+  it("Properly renders country data", async () => {
+    const { getByText } = componentToRender();
+    await waitFor(() => getByText(/Afghanistan.../i));
+  });
+
+

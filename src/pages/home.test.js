@@ -1,9 +1,11 @@
+import Home from "./home";
 import Countries from "./countries";
-import { render, waitFor, cleanup } from "@testing-library/react";
+import { render, waitFor, fireEvent, cleanup } from "@testing-library/react";
 import {} from "@testing-library/user-event";
 import { MemoryRouter, Route } from "react-router-dom";
 import COUNTRIES_QUERY from "../queries/countriesQuery";
 import { MockedProvider } from "@apollo/client/testing";
+
 const mocks = [
   {
     request: {
@@ -137,16 +139,29 @@ const mocks = [
 const componentToRender = () =>
   render(
     <MockedProvider mocks={mocks} addTypename={false}>
-      <MemoryRouter initialEntries={["/countries"]}>
+      <MemoryRouter initialEntries={["/"]}>
+        <Route exact path="/">
+          <Home />
+        </Route>
         <Route path="/countries">
           <Countries />
         </Route>
       </MemoryRouter>
     </MockedProvider>
   );
+
 afterEach(cleanup)
 
-it("loading state of apollo", async () => {
+it("renders homepage", async () => {
   const { getByText } = componentToRender();
-  await waitFor(() => getByText(/Loading.../i));
+  await waitFor(() => getByText(/Home Page/i));
+
 });
+
+it("proceeds to countries page", async () => {
+    const { getByText } = componentToRender();
+    await waitFor(() => getByText(/Home Page/i));
+    fireEvent.click(getByText("Go to Countries"));
+  
+    await waitFor(() => getByText(/Countries page/i)); // doesn't work - apollo graphql returns error :(
+  });

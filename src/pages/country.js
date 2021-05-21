@@ -6,7 +6,7 @@ const Country = (props) => {
     variables: { id: props.match.params.id },
   });
   if (loading) return <div>Loading...</div>;
-  if (error) return <div>something is wrong</div>;
+  if (error) return <div>Error :(</div>;
   console.log("dupa"); // ;-) edit. leaving it to be found in production
 
   const country = data.countries[0];
