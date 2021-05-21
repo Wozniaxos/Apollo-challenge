@@ -111,5 +111,5 @@ it("Properly renders country loading state", async () => {
 
 it("Properly renders country data", async () => {
   const { getByTestId } = componentToRender({ countryId: "Q889" });
-  await waitFor(() => getByTestId("countryName"));
+  await waitFor(() => getByTestId("country-name"));
 });

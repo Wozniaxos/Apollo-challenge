@@ -153,13 +153,13 @@ afterEach(cleanup);
 
 it("renders homepage", async () => {
   const { getByTestId } = componentToRender();
-  await waitFor(() => getByTestId("pageName"));
+  await waitFor(() => getByTestId("home-header"));
 });
 
 it("proceeds to countries page", async () => {
   const { getByTestId } = componentToRender();
-  await waitFor(() => getByTestId("pageName"));
-  fireEvent.click(getByTestId("countriesLink"));
+  await waitFor(() => getByTestId("home-header"));
+  fireEvent.click(getByTestId("countries-link"));
 
-  await waitFor(() => getByTestId("pageName"));
+  await waitFor(() => getByTestId("countries-header"));
 });

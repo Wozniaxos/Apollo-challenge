@@ -54,7 +54,7 @@ const Countries = (props) => {
 
   return (
     <div>
-      <p data-testid="pageName">Countries page</p>
+      <h1 data-testid="countries-header">Countries page</h1>
       <div>
         <button onClick={handleOnClickPrevious} disabled={onFirstPage}>
           Wróć

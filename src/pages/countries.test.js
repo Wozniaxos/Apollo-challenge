@@ -103,5 +103,5 @@ it("loading state of apollo", async () => {
 it("Check if loaded properly", async () => {
   const { getByTestId } = componentToRender();
   await waitFor(() => getByTestId("loading"));
-  await waitFor(() => getByTestId("pageName"));
+  await waitFor(() => getByTestId("countries-header"));
 });
