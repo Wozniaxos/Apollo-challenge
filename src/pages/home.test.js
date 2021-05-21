@@ -162,5 +162,5 @@ it("proceeds to countries page", async () => {
   await waitFor(() => getByText(/Home Page/i));
   fireEvent.click(getByText("Go to Countries"));
 
-  await waitFor(() => getByText(/Countries page/i)); // doesn't work - apollo graphql returns error :(
+  await waitFor(() => getByText(/Countries page/i));
 });
