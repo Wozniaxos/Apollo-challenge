@@ -49,12 +49,12 @@ const Countries = (props) => {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p data-testid="loading">Loading...</p>;
   if (error) return <p>Error :(</p>;
 
   return (
     <div>
-      <p>Countries page</p>
+      <p data-testid="pageName">Countries page</p>
       <div>
         <button onClick={handleOnClickPrevious} disabled={onFirstPage}>
           Wróć

@@ -105,11 +105,11 @@ const componentToRender = ({ countryId }) =>
 
 afterEach(cleanup);
 it("Properly renders country loading state", async () => {
-  const { getByText } = componentToRender({ countryId: "Q889" });
-  await waitFor(() => getByText(/Loading.../i));
+  const { getByTestId } = componentToRender({ countryId: "Q889" });
+  await waitFor(() => getByTestId("loading"));
 });
 
 it("Properly renders country data", async () => {
-  const { getByText } = componentToRender({ countryId: "Q889" });
-  await waitFor(() => getByText(/Afghanistan/i));
+  const { getByTestId } = componentToRender({ countryId: "Q889" });
+  await waitFor(() => getByTestId("countryName"));
 });

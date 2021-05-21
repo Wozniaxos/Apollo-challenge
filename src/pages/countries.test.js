@@ -1,6 +1,5 @@
 import Countries from "./countries";
 import { render, waitFor, cleanup } from "@testing-library/react";
-import {} from "@testing-library/user-event";
 import { MemoryRouter, Route } from "react-router-dom";
 import COUNTRIES_QUERY from "../queries/countriesQuery";
 import { MockedProvider } from "@apollo/client/testing";
@@ -97,12 +96,12 @@ const componentToRender = () =>
 afterEach(cleanup);
 
 it("loading state of apollo", async () => {
-  const { getByText } = componentToRender();
-  await waitFor(() => getByText(/Loading.../i));
+  const { getByTestId } = componentToRender();
+  await waitFor(() => getByTestId("loading"));
 });
 
 it("Check if loaded properly", async () => {
-  const { getByText } = componentToRender();
-  await waitFor(() => getByText(/Loading.../i));
-  await waitFor(() => getByText(/Countries page/i));
+  const { getByTestId } = componentToRender();
+  await waitFor(() => getByTestId("loading"));
+  await waitFor(() => getByTestId("pageName"));
 });

@@ -1,7 +1,6 @@
 import Home from "./home";
 import Countries from "./countries";
 import { render, waitFor, fireEvent, cleanup } from "@testing-library/react";
-import {} from "@testing-library/user-event";
 import { MemoryRouter, Route } from "react-router-dom";
 import COUNTRIES_QUERY from "../queries/countriesQuery";
 import { MockedProvider } from "@apollo/client/testing";
@@ -153,14 +152,14 @@ const componentToRender = () =>
 afterEach(cleanup);
 
 it("renders homepage", async () => {
-  const { getByText } = componentToRender();
-  await waitFor(() => getByText(/Home Page/i));
+  const { getByTestId } = componentToRender();
+  await waitFor(() => getByTestId("pageName"));
 });
 
 it("proceeds to countries page", async () => {
-  const { getByText } = componentToRender();
-  await waitFor(() => getByText(/Home Page/i));
-  fireEvent.click(getByText("Go to Countries"));
+  const { getByTestId } = componentToRender();
+  await waitFor(() => getByTestId("pageName"));
+  fireEvent.click(getByTestId("countriesLink"));
 
-  await waitFor(() => getByText(/Countries page/i));
+  await waitFor(() => getByTestId("pageName"));
 });
