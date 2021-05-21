@@ -54,7 +54,7 @@ const Countries = (props) => {
 
   return (
     <div>
-      <p>Cinema page</p>
+      <p>Countries page</p>
       <div>
         <button onClick={handleOnClickPrevious} disabled={onFirstPage}>
           Wróć
