@@ -9,7 +9,7 @@ const mocks = [
     request: {
       query: COUNTRIES_QUERY,
       variables: {
-        limit: 10,
+        limit: 5,
         skip: 0,
       },
     },
@@ -78,56 +78,6 @@ const mocks = [
               },
             ],
           },
-          {
-            id: "Q781",
-            name: "Antigua and Barbuda",
-            vatRate: null,
-            languages: [
-              {
-                id: "Q1860",
-                name: "English",
-              },
-            ],
-          },
-          {
-            id: "Q414",
-            name: "Argentina",
-            vatRate: 21,
-            languages: [
-              {
-                id: "Q1321",
-                name: "Spanish",
-              },
-            ],
-          },
-          {
-            id: "Q399",
-            name: "Armenia",
-            vatRate: 20,
-            languages: [],
-          },
-          {
-            id: "Q408",
-            name: "Australia",
-            vatRate: 10,
-            languages: [
-              {
-                id: "Q1860",
-                name: "English",
-              },
-            ],
-          },
-          {
-            id: "Q40",
-            name: "Austria",
-            vatRate: 20,
-            languages: [
-              {
-                id: "Q188",
-                name: "German",
-              },
-            ],
-          },
         ],
       },
     },
@@ -144,9 +94,15 @@ const componentToRender = () =>
       </MemoryRouter>
     </MockedProvider>
   );
-afterEach(cleanup)
+afterEach(cleanup);
 
 it("loading state of apollo", async () => {
   const { getByText } = componentToRender();
   await waitFor(() => getByText(/Loading.../i));
+});
+
+it("Check if loaded properly", async () => {
+  const { getByText } = componentToRender();
+  await waitFor(() => getByText(/Loading.../i));
+  await waitFor(() => getByText(/Countries page/i));
 });

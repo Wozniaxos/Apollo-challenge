@@ -11,7 +11,7 @@ const mocks = [
     request: {
       query: COUNTRIES_QUERY,
       variables: {
-        limit: 10,
+        limit: 5,
         skip: 0,
       },
     },
@@ -150,18 +150,17 @@ const componentToRender = () =>
     </MockedProvider>
   );
 
-afterEach(cleanup)
+afterEach(cleanup);
 
 it("renders homepage", async () => {
   const { getByText } = componentToRender();
   await waitFor(() => getByText(/Home Page/i));
-
 });
 
 it("proceeds to countries page", async () => {
-    const { getByText } = componentToRender();
-    await waitFor(() => getByText(/Home Page/i));
-    fireEvent.click(getByText("Go to Countries"));
-  
-    await waitFor(() => getByText(/Countries page/i)); // doesn't work - apollo graphql returns error :(
-  });
+  const { getByText } = componentToRender();
+  await waitFor(() => getByText(/Home Page/i));
+  fireEvent.click(getByText("Go to Countries"));
+
+  await waitFor(() => getByText(/Countries page/i)); // doesn't work - apollo graphql returns error :(
+});
