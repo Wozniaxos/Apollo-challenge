@@ -5,8 +5,8 @@ const Country = (props) => {
   const { loading, error, data } = useQuery(COUNTRY_QUERY, {
     variables: { id: props.match.params.id },
   });
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>something is wrong</div>;
+  if (loading) return <div data-testid="loading">Loading...</div>;
+  if (error) return <div>Error :(</div>;
   console.log("dupa"); // ;-) edit. leaving it to be found in production
 
   const country = data.countries[0];
